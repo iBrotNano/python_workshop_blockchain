@@ -1,4 +1,5 @@
-from constants import SATS_PER_BTC, DUST_LIMIT
+from constants import SATS_PER_BTC, WALLET_PATH, DUST_LIMIT
+import json
 
 
 def btc_to_sats(btc):
@@ -6,14 +7,23 @@ def btc_to_sats(btc):
 
 
 def sats_to_btc(sats):
-    return float(sats / SATS_PER_BTC)
+    return float(sats) / SATS_PER_BTC
 
 
 def get_balance(utxos):
-    value = [u.get("value", 0) for u in utxos]
-    return sum(value)
+    values = [utxo["value"] for utxo in utxos]
+    return sum(values)
 
 
-def check_dusty(name, sats):
-    if sats <= DUST_LIMIT:
-        raise ValueError(f"{name} dusty: {sats} sats")
+def readJSON(path):
+    with open(path, "r") as file:
+        return json.load(file)
+
+
+def get_pk_electrum(sender):
+    return readJSON(WALLET_PATH)[sender].split("p2wpkh:")[1]
+
+
+def check_dusty(name, amt):
+    if amt <= DUST_LIMIT:
+        raise ValueError(f"{name} dusty: {amt} sats")

@@ -21,6 +21,7 @@ dependencies:
   - pygments=2.19.2=py312haa95532_0
   - pysocks=1.7.1=py312haa95532_1
   - python=3.12.12=h716150d_1
+  - python-dotenv=1.2.1=py312haa95532_0
   - requests=2.32.5=py312haa95532_1
   - rich=14.2.0=py312haa95532_0
   - setuptools=80.9.0=py312haa95532_0
